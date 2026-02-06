@@ -1,0 +1,29 @@
+{
+  "name": "whatsapp-catalog-scraper",
+  "version": "1.0.0",
+  "description": "WhatsApp Business Catalog Scraper - Extract products from public catalogs",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "keywords": [
+    "whatsapp",
+    "catalog",
+    "scraper",
+    "puppeteer"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "fastify": "^4.26.0",
+    "@fastify/static": "^7.0.1",
+    "@fastify/cors": "^9.0.1",
+    "puppeteer": "^22.0.0",
+    "json2csv": "^6.0.0-alpha.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

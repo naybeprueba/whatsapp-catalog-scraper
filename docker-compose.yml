@@ -1,0 +1,48 @@
+# ==============================================
+# Docker Compose para WhatsApp Catalog Scraper
+# Compatible con Easypanel
+# ==============================================
+
+version: '3.8'
+
+services:
+  whatsapp-catalog-scraper:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: wa-catalog-scraper
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    # Recursos para Puppeteer/Chrome
+    shm_size: '2gb'
+    # Configuración de seguridad para Chrome
+    security_opt:
+      - no-new-privileges:true
+    # Límites de recursos (ajustar según necesidades)
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: '2'
+        reservations:
+          memory: 512M
+          cpus: '0.5'
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  default:
+    name: wa-scraper-network
